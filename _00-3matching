@@ -1,0 +1,7 @@
+Matching
+1. air pollution monitoring station
+ - address based matching
+ - using excel(matching_sigungu)
+2. weather monitoring station
+ - distance based matching
+ - using qgis(merged_joined3)

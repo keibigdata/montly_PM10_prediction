@@ -1,0 +1,16 @@
+1. changeColumn
+what: column "day" -> column "month", "name"
+using: excel
+how: data -> separate text
+
+2. matchSigCd
+what: create column sig_cd
+using: excel
+how: matching
+output: monthResult_75_matching.csv
+
+3. matchWeatherCd
+what: create column weather_cd
+using: excel
+how: matching
+output: pm10_sig_matching_75_mean.csv
