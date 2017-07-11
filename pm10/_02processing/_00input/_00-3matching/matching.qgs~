@@ -5,13 +5,13 @@
   <evaluateDefaultValues active="0"/>
   <layer-tree-group expanded="1" checked="Qt::Checked" name="">
     <customproperties/>
-    <layer-tree-layer expanded="1" checked="Qt::Checked" id="weather_monitoring_station_517920170711100331049" name="weather_monitoring_station_5179">
+    <layer-tree-layer expanded="1" checked="Qt::Checked" id="weather_monitoring_station_517920170710175649903" name="weather_monitoring_station_5179">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="1" checked="Qt::Checked" id="merged_joined20170711100715510" name="merged_joined">
+    <layer-tree-layer expanded="1" checked="Qt::Checked" id="merged_joined20170710184207623" name="merged_joined">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer expanded="1" checked="Qt::Checked" id="merged_517920170711100342961" name="merged_5179">
+    <layer-tree-layer expanded="1" checked="Qt::Checked" id="merged_517920170710180505703" name="merged_5179">
       <customproperties/>
     </layer-tree-layer>
   </layer-tree-group>
@@ -19,10 +19,10 @@
   <mapcanvas>
     <units>meters</units>
     <extent>
-      <xmin>723297.05288521479815245</xmin>
-      <ymin>1603420.24499272345565259</ymin>
-      <xmax>1303526.78447674680501223</xmax>
-      <ymax>2186411.58872333355247974</ymax>
+      <xmin>-98340.26877502910792828</xmin>
+      <ymin>760179.74460121942684054</ymin>
+      <xmax>1350345.02644200809299946</xmax>
+      <ymax>2314531.2915763552300632</ymax>
     </extent>
     <rotation>0</rotation>
     <projections>0</projections>
@@ -43,32 +43,32 @@
   </mapcanvas>
   <layer-tree-canvas>
     <custom-order enabled="0">
-      <item>weather_monitoring_station_517920170711100331049</item>
-      <item>merged_517920170711100342961</item>
-      <item>merged_joined20170711100715510</item>
+      <item>weather_monitoring_station_517920170710175649903</item>
+      <item>merged_517920170710180505703</item>
+      <item>merged_joined20170710184207623</item>
     </custom-order>
   </layer-tree-canvas>
   <legend updateDrawingOrder="true">
     <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="weather_monitoring_station_5179" showFeatureCount="0">
       <filegroup open="true" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="weather_monitoring_station_517920170711100331049" visible="1"/>
+        <legendlayerfile isInOverview="0" layerid="weather_monitoring_station_517920170710175649903" visible="1"/>
       </filegroup>
     </legendlayer>
     <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="merged_joined" showFeatureCount="0">
       <filegroup open="true" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="merged_joined20170711100715510" visible="1"/>
+        <legendlayerfile isInOverview="0" layerid="merged_joined20170710184207623" visible="1"/>
       </filegroup>
     </legendlayer>
     <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="merged_5179" showFeatureCount="0">
       <filegroup open="true" hidden="false">
-        <legendlayerfile isInOverview="0" layerid="merged_517920170711100342961" visible="1"/>
+        <legendlayerfile isInOverview="0" layerid="merged_517920170710180505703" visible="1"/>
       </filegroup>
     </legendlayer>
   </legend>
   <projectlayers>
     <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" readOnly="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
-      <id>merged_517920170711100342961</id>
-      <datasource>./merged_5179.shp</datasource>
+      <id>merged_517920170710180505703</id>
+      <datasource>D:/01 Study/08 pm/processing/matching3/merged_5179.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -86,7 +86,7 @@
         </spatialrefsys>
       </srs>
       <provider encoding="System">ogr</provider>
-      <previewExpression></previewExpression>
+      <previewExpression>COALESCE( "Source", '&lt;NULL>' )</previewExpression>
       <vectorjoins/>
       <layerDependencies/>
       <expressionfields/>
@@ -118,7 +118,7 @@
           <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
             <layer pass="0" class="SimpleFill" locked="0">
               <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
-              <prop k="color" v="104,160,87,255"/>
+              <prop k="color" v="221,97,116,255"/>
               <prop k="joinstyle" v="bevel"/>
               <prop k="offset" v="0,0"/>
               <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
@@ -172,7 +172,13 @@
       <excludeAttributesWFS/>
       <attributeactions default="-1"/>
       <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="840970800">
-        <columns/>
+        <columns>
+          <column width="-1" hidden="0" type="field" name="Source"/>
+          <column width="-1" hidden="0" type="field" name="SIG_CD"/>
+          <column width="-1" hidden="0" type="field" name="SIG_ENG_NM"/>
+          <column width="-1" hidden="0" type="field" name="SIG_KOR_NM"/>
+          <column width="-1" hidden="1" type="actions"/>
+        </columns>
       </attributetableconfig>
       <editform></editform>
       <editforminit/>
@@ -188,8 +194,8 @@
       </conditionalstyles>
     </maplayer>
     <maplayer simplifyAlgorithm="0" minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" readOnly="0" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
-      <id>merged_joined20170711100715510</id>
-      <datasource>./merged_joined.shp</datasource>
+      <id>merged_joined20170710184207623</id>
+      <datasource>D:/01 Study/08 pm/processing/matching3/merged_joined.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -207,7 +213,7 @@
         </spatialrefsys>
       </srs>
       <provider encoding="System">ogr</provider>
-      <previewExpression></previewExpression>
+      <previewExpression>COALESCE( "join_name", '&lt;NULL>' )</previewExpression>
       <vectorjoins/>
       <layerDependencies/>
       <expressionfields/>
@@ -218,8 +224,6 @@
         <default field="SIG_KOR_NM" expression=""/>
         <default field="join_code" expression=""/>
         <default field="join_start" expression=""/>
-        <default field="join_sta_1" expression=""/>
-        <default field="join_sta_2" expression=""/>
         <default field="join_endDa" expression=""/>
         <default field="join_name" expression=""/>
         <default field="join_manag" expression=""/>
@@ -227,9 +231,6 @@
         <default field="join_lng" expression=""/>
         <default field="join_addr" expression=""/>
         <default field="join_stati" expression=""/>
-        <default field="join_new" expression=""/>
-        <default field="join_new20" expression=""/>
-        <default field="join_sta_3" expression=""/>
         <default field="distance" expression=""/>
       </defaults>
       <map-layer-style-manager current="">
@@ -254,12 +255,6 @@
         <edittype widgetv2type="TextEdit" name="join_start">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
-        <edittype widgetv2type="TextEdit" name="join_sta_1">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="join_sta_2">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
         <edittype widgetv2type="TextEdit" name="join_endDa">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
@@ -281,15 +276,6 @@
         <edittype widgetv2type="TextEdit" name="join_stati">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
-        <edittype widgetv2type="TextEdit" name="join_new">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="join_new20">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="join_sta_3">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
         <edittype widgetv2type="TextEdit" name="distance">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
@@ -299,7 +285,7 @@
           <symbol alpha="1" clip_to_extent="1" type="fill" name="0">
             <layer pass="0" class="SimpleFill" locked="0">
               <prop k="border_width_map_unit_scale" v="0,0,0,0,0,0"/>
-              <prop k="color" v="129,7,204,255"/>
+              <prop k="color" v="200,184,75,255"/>
               <prop k="joinstyle" v="bevel"/>
               <prop k="offset" v="0,0"/>
               <prop k="offset_map_unit_scale" v="0,0,0,0,0,0"/>
@@ -350,25 +336,36 @@
         <alias field="SIG_KOR_NM" index="3" name=""/>
         <alias field="join_code" index="4" name=""/>
         <alias field="join_start" index="5" name=""/>
-        <alias field="join_sta_1" index="6" name=""/>
-        <alias field="join_sta_2" index="7" name=""/>
-        <alias field="join_endDa" index="8" name=""/>
-        <alias field="join_name" index="9" name=""/>
-        <alias field="join_manag" index="10" name=""/>
-        <alias field="join_lat" index="11" name=""/>
-        <alias field="join_lng" index="12" name=""/>
-        <alias field="join_addr" index="13" name=""/>
-        <alias field="join_stati" index="14" name=""/>
-        <alias field="join_new" index="15" name=""/>
-        <alias field="join_new20" index="16" name=""/>
-        <alias field="join_sta_3" index="17" name=""/>
-        <alias field="distance" index="18" name=""/>
+        <alias field="join_endDa" index="6" name=""/>
+        <alias field="join_name" index="7" name=""/>
+        <alias field="join_manag" index="8" name=""/>
+        <alias field="join_lat" index="9" name=""/>
+        <alias field="join_lng" index="10" name=""/>
+        <alias field="join_addr" index="11" name=""/>
+        <alias field="join_stati" index="12" name=""/>
+        <alias field="distance" index="13" name=""/>
       </aliases>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
       <attributeactions default="-1"/>
       <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="1450474704">
-        <columns/>
+        <columns>
+          <column width="-1" hidden="0" type="field" name="Source"/>
+          <column width="-1" hidden="0" type="field" name="SIG_CD"/>
+          <column width="-1" hidden="0" type="field" name="SIG_ENG_NM"/>
+          <column width="-1" hidden="0" type="field" name="SIG_KOR_NM"/>
+          <column width="-1" hidden="0" type="field" name="join_code"/>
+          <column width="-1" hidden="0" type="field" name="join_start"/>
+          <column width="-1" hidden="0" type="field" name="join_endDa"/>
+          <column width="-1" hidden="0" type="field" name="join_name"/>
+          <column width="-1" hidden="0" type="field" name="join_manag"/>
+          <column width="-1" hidden="0" type="field" name="join_lat"/>
+          <column width="-1" hidden="0" type="field" name="join_lng"/>
+          <column width="-1" hidden="0" type="field" name="join_addr"/>
+          <column width="-1" hidden="0" type="field" name="join_stati"/>
+          <column width="-1" hidden="0" type="field" name="distance"/>
+          <column width="-1" hidden="1" type="actions"/>
+        </columns>
       </attributetableconfig>
       <editform></editform>
       <editforminit/>
@@ -390,8 +387,8 @@
         <xmax>1300523.5249964592512697</xmax>
         <ymax>2028374.38739023637026548</ymax>
       </extent>
-      <id>weather_monitoring_station_517920170711100331049</id>
-      <datasource>./weather_monitoring_station_5179.shp</datasource>
+      <id>weather_monitoring_station_517920170710175649903</id>
+      <datasource>D:/01 Study/08 pm/processing/matching3/weather_monitoring_station_5179.shp</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -409,25 +406,20 @@
         </spatialrefsys>
       </srs>
       <provider encoding="System">ogr</provider>
-      <previewExpression></previewExpression>
+      <previewExpression>COALESCE( "name", '&lt;NULL>' )</previewExpression>
       <vectorjoins/>
       <layerDependencies/>
       <expressionfields/>
       <defaults>
         <default field="code" expression=""/>
-        <default field="startYear" expression=""/>
-        <default field="startMonth" expression=""/>
-        <default field="startDay" expression=""/>
+        <default field="startDate" expression=""/>
         <default field="endDate" expression=""/>
         <default field="name" expression=""/>
         <default field="managed" expression=""/>
         <default field="lat" expression=""/>
         <default field="lng" expression=""/>
         <default field="addr" expression=""/>
-        <default field="station1" expression=""/>
-        <default field="new" expression=""/>
-        <default field="new2000" expression=""/>
-        <default field="station2" expression=""/>
+        <default field="station" expression=""/>
       </defaults>
       <map-layer-style-manager current="">
         <map-layer-style name=""/>
@@ -436,13 +428,7 @@
         <edittype widgetv2type="TextEdit" name="code">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
-        <edittype widgetv2type="TextEdit" name="startYear">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="startMonth">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="startDay">
+        <edittype widgetv2type="TextEdit" name="startDate">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
         <edittype widgetv2type="TextEdit" name="endDate">
@@ -463,16 +449,7 @@
         <edittype widgetv2type="TextEdit" name="addr">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
-        <edittype widgetv2type="TextEdit" name="station1">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="new">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="new2000">
-          <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
-        </edittype>
-        <edittype widgetv2type="TextEdit" name="station2">
+        <edittype widgetv2type="TextEdit" name="station">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
       </edittypes>
@@ -534,25 +511,31 @@
       <annotationform></annotationform>
       <aliases>
         <alias field="code" index="0" name=""/>
-        <alias field="startYear" index="1" name=""/>
-        <alias field="startMonth" index="2" name=""/>
-        <alias field="startDay" index="3" name=""/>
-        <alias field="endDate" index="4" name=""/>
-        <alias field="name" index="5" name=""/>
-        <alias field="managed" index="6" name=""/>
-        <alias field="lat" index="7" name=""/>
-        <alias field="lng" index="8" name=""/>
-        <alias field="addr" index="9" name=""/>
-        <alias field="station1" index="10" name=""/>
-        <alias field="new" index="11" name=""/>
-        <alias field="new2000" index="12" name=""/>
-        <alias field="station2" index="13" name=""/>
+        <alias field="startDate" index="1" name=""/>
+        <alias field="endDate" index="2" name=""/>
+        <alias field="name" index="3" name=""/>
+        <alias field="managed" index="4" name=""/>
+        <alias field="lat" index="5" name=""/>
+        <alias field="lng" index="6" name=""/>
+        <alias field="addr" index="7" name=""/>
+        <alias field="station" index="8" name=""/>
       </aliases>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
       <attributeactions default="-1"/>
-      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="77263872">
-        <columns/>
+      <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="434554688">
+        <columns>
+          <column width="-1" hidden="0" type="field" name="code"/>
+          <column width="-1" hidden="0" type="field" name="startDate"/>
+          <column width="-1" hidden="0" type="field" name="endDate"/>
+          <column width="-1" hidden="0" type="field" name="name"/>
+          <column width="-1" hidden="0" type="field" name="managed"/>
+          <column width="-1" hidden="0" type="field" name="lat"/>
+          <column width="-1" hidden="0" type="field" name="lng"/>
+          <column width="-1" hidden="0" type="field" name="addr"/>
+          <column width="-1" hidden="0" type="field" name="station"/>
+          <column width="-1" hidden="1" type="actions"/>
+        </columns>
       </attributetableconfig>
       <editform></editform>
       <editforminit/>
@@ -593,9 +576,9 @@
     <Digitizing>
       <DefaultSnapToleranceUnit type="int">2</DefaultSnapToleranceUnit>
       <LayerSnappingList type="QStringList">
-        <value>weather_monitoring_station_517920170711100331049</value>
-        <value>merged_517920170711100342961</value>
-        <value>merged_joined20170711100715510</value>
+        <value>weather_monitoring_station_517920170710175649903</value>
+        <value>merged_517920170710180505703</value>
+        <value>merged_joined20170710184207623</value>
       </LayerSnappingList>
       <LayerSnappingEnabledList type="QStringList">
         <value>disabled</value>
