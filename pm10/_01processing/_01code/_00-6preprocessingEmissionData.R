@@ -36,6 +36,15 @@ emission[emission[,"SIGUNGU"]=="여주군", "SIGUNGU"] <- "여주시"
 emission[emission[,"SIGUNGU"]=="포천군", "SIGUNGU"] <- "포천시"
 emission[emission[,"SIGUNGU"]=="당진군", "SIGUNGU"] <- "당진시"
 
+#청원군(향후 sum 해야함)
+emission[emission[,"SIGUNGU"]=="청원군", "SIGUNGU"] <- "청주시"
+emission[emission[,"SIGUNGU"]=="청원군", "SIGUNGU2"] <- ""
+
+#연기군(향후 sum 해야함)
+emission[emission[,"SIGUNGU"]=="연기군", "SIDO"] <- "세종"
+emission[emission[,"SIGUNGU"]=="연기군", "SIGUNGU"] <- "세종시"
+emission[emission[,"SIGUNGU"]=="연기군", "SIGUNGU2"] <- ""
+
 #제주(향후 sum 해야함)
 emission[emission[,"SIGUNGU"]=="북제주군", "SIGUNGU"] <- "제주시"
 emission[emission[,"SIGUNGU"]=="남제주군", "SIGUNGU"] <- "서귀포시"
@@ -45,31 +54,39 @@ emission[emission[,"SIGUNGU2"]=="원미구", "SIGUNGU2"] <- ""
 emission[emission[,"SIGUNGU2"]=="소사구", "SIGUNGU2"] <- ""
 emission[emission[,"SIGUNGU2"]=="오정구", "SIGUNGU2"] <- ""
 
+#청주 구 없애기(향후 sum 해야함)
+emission[emission[,"SIGUNGU"]=="청주시", "SIGUNGU2"] <- ""
+
+##sum
+emission.aggr <- aggregate(x=emission[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3","EM_PM2.5")],
+                           by=emission[c("YEAR","SIDO","SIGUNGU","SIGUNGU2","LARGECATE")],
+                           FUN=sum,
+                           na.rm=TRUE)
 
 ##나눠지는 아이들 중심으로!!!
 #freq column 생성
-emission[,"FREQ"] <- 1
+emission.aggr[,"FREQ"] <- 1
 
 #insert freq
-emission[emission[,"SIGUNGU"]=="안산시", "FREQ"] <- 2
-emission[emission[,"SIGUNGU"]=="용인시", "FREQ"] <- 3
-emission[emission[,"SIGUNGU"]=="천안시", "FREQ"] <- 2
-emission[emission[,"SIGUNGU"]=="마산시", "FREQ"] <- 2
-emission[emission[,"SIGUNGU"]=="창원시", "FREQ"] <- 2
-emission[emission[,"SIGUNGU"]=="고양시" & emission[,"SIGUNGU2"]=="일산구", "FREQ"] <- 2
-emission[emission[,"SIGUNGU"]=="수원시" & emission[,"SIGUNGU2"]=="팔달구", "FREQ"] <- 2
+emission.aggr[emission.aggr[,"SIGUNGU"]=="안산시" & emission.aggr[,"SIGUNGU2"]=="", "FREQ"] <- 2
+emission.aggr[emission.aggr[,"SIGUNGU"]=="용인시" & emission.aggr[,"SIGUNGU2"]=="", "FREQ"] <- 3
+emission.aggr[emission.aggr[,"SIGUNGU"]=="천안시" & emission.aggr[,"SIGUNGU2"]=="", "FREQ"] <- 2
+emission.aggr[emission.aggr[,"SIGUNGU"]=="마산시" & emission.aggr[,"SIGUNGU2"]=="", "FREQ"] <- 2
+emission.aggr[emission.aggr[,"SIGUNGU"]=="창원시" & emission.aggr[,"SIGUNGU2"]=="", "FREQ"] <- 2
+emission.aggr[emission.aggr[,"SIGUNGU"]=="고양시" & emission.aggr[,"SIGUNGU2"]=="일산구", "FREQ"] <- 2
+emission.aggr[emission.aggr[,"SIGUNGU"]=="수원시" & emission.aggr[,"SIGUNGU2"]=="팔달구", "FREQ"] <- 2
 
 #function to manage rownum
-check.integer <- function(N){
-  !grepl("[^[:digit:]]", format(N,  digits = 20, scientific = FALSE))
-}
+# check.integer <- function(N){
+#   !grepl("[^[:digit:]]", format(N,  digits = 20, scientific = FALSE))
+# }
 remainder <- function(N){
-  return (N%%1)
+  return (as.numeric(N)%%1) # (last) 
 }
 
 #create expanded emission data 
-emission.expanded <- emission[rep(row.names(emission), emission$FREQ),]
-emission.expanded[,"ROWNUM"] <- as.numeric(rownames(emission.expanded))
+emission.expanded <- emission.aggr[rep(row.names(emission.aggr), emission.aggr$FREQ),]
+emission.expanded[,"ROWNUM"] <- as.character(rownames(emission.expanded))
 emission.expanded[,"INTEGER"] <- sapply(emission.expanded$ROWNUM, remainder)
 
 #allocation emission value 
@@ -79,7 +96,64 @@ emission.expanded[emission.expanded[,"FREQ"]>1, c("EM_CO","EM_NOx","EM_SOx","EM_
 # emission[emission[,"SIGUNGU"]=="용인시",]
 # emission.expanded[emission.expanded[,"SIGUNGU"]=="용인시",]
 
+#setting location name
+#안산시
+emission.expanded[emission.expanded[,"SIGUNGU"]=="안산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "단원구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="안산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "상록구" 
+#용인시
+emission.expanded[emission.expanded[,"SIGUNGU"]=="용인시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "수지구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="용인시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "기흥구" 
+emission.expanded[emission.expanded[,"SIGUNGU"]=="용인시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0.1 & emission.expanded[,"INTEGER"]<0.3, "SIGUNGU2"] <- "처인구" 
+#천안시
+emission.expanded[emission.expanded[,"SIGUNGU"]=="천안시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "동남구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="천안시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "서북구" 
+#마산시
+emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "마산회원구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU"] <- "창원시"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "마산합포구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU"] <- "창원시" 
+#창원시
+emission.expanded[emission.expanded[,"SIGUNGU"]=="창원시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "의창구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="창원시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "성산구" 
+#고양시 일산구
+emission.expanded[emission.expanded[,"SIGUNGU"]=="고양시" & emission.expanded[,"SIGUNGU2"]=="일산구" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "일산동구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="고양시" & emission.expanded[,"SIGUNGU2"]=="일산구" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "일산서구" 
+#수원시 팔달구
+emission.expanded[emission.expanded[,"SIGUNGU"]=="수원시" & emission.expanded[,"SIGUNGU2"]=="팔달구" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "팔달구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="수원시" & emission.expanded[,"SIGUNGU2"]=="팔달구" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "영통구" 
+
 
 #진해시 -> 창원시 진해구
-emission[emission[,"SIGUNGU"]=="진해시", "SIGUNGU2"] <- "진해구"
-emission[emission[,"SIGUNGU"]=="진해시", "SIGUNGU"] <- "창원시"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="진해시", "SIGUNGU2"] <- "진해구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="진해시", "SIGUNGU"] <- "창원시"
+
+#join SIG_CD
+library(dplyr)
+stdSigungu <- read.csv("D:/01 Study/08 pm/processing/std_sigungu.csv")
+emission.joined <- left_join(emission.expanded, stdSigungu, by= c("SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2"))
+emission.joined <- emission.joined[,c("YEAR","SIDO","SIGUNGU","SIGUNGU2","LARGECATE","SIG_CD","EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3","EM_PM2.5")]
+
+##LARGECATE
+emission.joined.1 <- emission.joined[emission.joined$LARGECATE=="에너지산업 연소",]
+emission.joined.2 <- emission.joined[emission.joined$LARGECATE=="비산업 연소",]
+emission.joined.3 <- emission.joined[emission.joined$LARGECATE=="제조업 연소",]
+emission.joined.4 <- emission.joined[emission.joined$LARGECATE=="생산공정",]
+emission.joined.5 <- emission.joined[emission.joined$LARGECATE=="에너지수송 및 저장",]
+emission.joined.6 <- emission.joined[emission.joined$LARGECATE=="유기용제 사용",]
+emission.joined.7 <- emission.joined[emission.joined$LARGECATE=="도로이동오염원",]
+emission.joined.8 <- emission.joined[emission.joined$LARGECATE=="비도로이동오염원",]
+emission.joined.9 <- emission.joined[emission.joined$LARGECATE=="폐기물처리",]
+
+emission.joined.temp <- left_join(emission.joined.1, emission.joined.2, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.3, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.4, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.5, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.6, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.7, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.8, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.9, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+
+
+
+#save csv
+write.csv(emission.joined, "D:/01 Study/08 pm/processing/input/emission_joined.csv", row.names = FALSE)
