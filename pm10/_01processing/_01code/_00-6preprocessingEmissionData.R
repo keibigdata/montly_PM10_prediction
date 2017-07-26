@@ -75,6 +75,7 @@ emission.aggr[emission.aggr[,"SIGUNGU"]=="마산시" & emission.aggr[,"SIGUNGU2"
 emission.aggr[emission.aggr[,"SIGUNGU"]=="창원시" & emission.aggr[,"SIGUNGU2"]=="", "FREQ"] <- 2
 emission.aggr[emission.aggr[,"SIGUNGU"]=="고양시" & emission.aggr[,"SIGUNGU2"]=="일산구", "FREQ"] <- 2
 emission.aggr[emission.aggr[,"SIGUNGU"]=="수원시" & emission.aggr[,"SIGUNGU2"]=="팔달구", "FREQ"] <- 2
+emission.aggr[emission.aggr[,"SIGUNGU"]=="청주시" & emission.aggr[,"SIGUNGU2"]=="", "FREQ"] <- 4
 
 #function to manage rownum
 # check.integer <- function(N){
@@ -109,9 +110,8 @@ emission.expanded[emission.expanded[,"SIGUNGU"]=="천안시" & emission.expanded
 emission.expanded[emission.expanded[,"SIGUNGU"]=="천안시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "서북구" 
 #마산시
 emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "마산회원구"
-emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU"] <- "창원시"
 emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "마산합포구"
-emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU"] <- "창원시" 
+emission.expanded[emission.expanded[,"SIGUNGU"]=="마산시", "SIGUNGU"] <- "창원시" 
 #창원시
 emission.expanded[emission.expanded[,"SIGUNGU"]=="창원시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "의창구"
 emission.expanded[emission.expanded[,"SIGUNGU"]=="창원시" & emission.expanded[,"SIGUNGU2"]=="" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "성산구" 
@@ -121,17 +121,28 @@ emission.expanded[emission.expanded[,"SIGUNGU"]=="고양시" & emission.expanded
 #수원시 팔달구
 emission.expanded[emission.expanded[,"SIGUNGU"]=="수원시" & emission.expanded[,"SIGUNGU2"]=="팔달구" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "팔달구"
 emission.expanded[emission.expanded[,"SIGUNGU"]=="수원시" & emission.expanded[,"SIGUNGU2"]=="팔달구" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "영통구" 
+#청주시
+emission.expanded[emission.expanded[,"SIGUNGU"]=="청주시" & emission.expanded[,"INTEGER"]==0, "SIGUNGU2"] <- "상당구"
+emission.expanded[emission.expanded[,"SIGUNGU"]=="청주시" & emission.expanded[,"INTEGER"]>0 & emission.expanded[,"INTEGER"]<0.2, "SIGUNGU2"] <- "흥덕구" 
+emission.expanded[emission.expanded[,"SIGUNGU"]=="청주시" & emission.expanded[,"INTEGER"]>0.1 & emission.expanded[,"INTEGER"]<0.3, "SIGUNGU2"] <- "청원구" 
+emission.expanded[emission.expanded[,"SIGUNGU"]=="청주시" & emission.expanded[,"INTEGER"]>0.2 & emission.expanded[,"INTEGER"]<0.4, "SIGUNGU2"] <- "서원구" 
 
 
 #진해시 -> 창원시 진해구
 emission.expanded[emission.expanded[,"SIGUNGU"]=="진해시", "SIGUNGU2"] <- "진해구"
 emission.expanded[emission.expanded[,"SIGUNGU"]=="진해시", "SIGUNGU"] <- "창원시"
 
-#join SIG_CD
+##join SIG_CD
 library(dplyr)
 stdSigungu <- read.csv("D:/01 Study/08 pm/processing/std_sigungu.csv")
 emission.joined <- left_join(emission.expanded, stdSigungu, by= c("SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2"))
 emission.joined <- emission.joined[,c("YEAR","SIDO","SIGUNGU","SIGUNGU2","LARGECATE","SIG_CD","EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3","EM_PM2.5")]
+#aggregation
+emission.joined <- aggregate(x=emission.joined[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3","EM_PM2.5")],
+                           by=emission.joined[c("YEAR","SIDO","SIGUNGU","SIGUNGU2","SIG_CD","LARGECATE")],
+                           FUN=sum,
+                           na.rm=TRUE)
+length(unique(emission.joined[,"SIG_CD"]))
 
 ##LARGECATE
 emission.joined.1 <- emission.joined[emission.joined$LARGECATE=="에너지산업 연소",]
@@ -144,15 +155,40 @@ emission.joined.7 <- emission.joined[emission.joined$LARGECATE=="도로이동오
 emission.joined.8 <- emission.joined[emission.joined$LARGECATE=="비도로이동오염원",]
 emission.joined.9 <- emission.joined[emission.joined$LARGECATE=="폐기물처리",]
 
-emission.joined.temp <- left_join(emission.joined.1, emission.joined.2, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
-emission.joined.temp <- left_join(emission.joined.temp, emission.joined.3, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
-emission.joined.temp <- left_join(emission.joined.temp, emission.joined.4, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
-emission.joined.temp <- left_join(emission.joined.temp, emission.joined.5, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
-emission.joined.temp <- left_join(emission.joined.temp, emission.joined.6, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
-emission.joined.temp <- left_join(emission.joined.temp, emission.joined.7, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
-emission.joined.temp <- left_join(emission.joined.temp, emission.joined.8, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
-emission.joined.temp <- left_join(emission.joined.temp, emission.joined.9, by= c("YEAR"="YEAR","SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2","SIG_CD"="SIG_CD"))
+##stdSigunguMonth
+stdSigungu[, "NO"] <- 13
+stdSigunguMonth <- stdSigungu[rep(row.names(stdSigungu), stdSigungu$NO),]
+stdSigunguMonth[, "YEAR"] <- rep(2001:2013, 250)
+#standard
+stdSigungu <- stdSigungu[, c("SIDO","SIGUNGU","SIGUNGU2","SIG_CD")]
+stdSigunguMonth <- stdSigunguMonth[,c("SIG_CD","YEAR")]
 
+###중간테스트
+write.csv(emission.joined, "D:/01 Study/08 pm/processing/preprocessing/result/emission_joined.csv")
+write.csv(emission.joined.1, "D:/01 Study/08 pm/processing/preprocessing/result/energyIndustry.csv")
+write.csv(emission.joined.temp, "D:/01 Study/08 pm/processing/preprocessing/result/emissionJoinedTemp.csv")
+
+##join
+# emission.joined.temp <- left_join(stdSigunguMonth, emission.joined.1, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+# emission.joined.temp <- left_join(emission.joined.temp, emission.joined.2, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+# emission.joined.temp <- left_join(emission.joined.temp, emission.joined.3, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+# emission.joined.temp <- left_join(emission.joined.temp, emission.joined.4, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+# emission.joined.temp <- left_join(emission.joined.temp, emission.joined.5, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+# emission.joined.temp <- left_join(emission.joined.temp, emission.joined.6, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+# emission.joined.temp <- left_join(emission.joined.temp, emission.joined.7, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+# emission.joined.temp <- left_join(emission.joined.temp, emission.joined.8, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+# emission.joined <- left_join(emission.joined.temp, emission.joined.9, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+
+##join
+emission.joined.temp <- left_join(stdSigunguMonth, emission.joined.1, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.2, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.3, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.4, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.5, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.6, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.7, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+emission.joined.temp <- left_join(emission.joined.temp, emission.joined.8, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
+emission.joined <- left_join(emission.joined.temp, emission.joined.9, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
 
 
 #save csv
