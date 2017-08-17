@@ -5,7 +5,11 @@ rm(list=ls())
 
 ##weather data 
 weatherMonth <- read.csv("D:/my-backup/project/pm10/_01processing/_00input/_04merge/monthResult_weather.csv", header=T, sep=",")
+##pollutantMonth
 pollutantMonth <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_03meanOfAirPollutionOfSigungu/pm10_sig_matching_75_mean_agg.csv", header=T, sep=",")
+##china
+
+
 
 colnames(weatherMonth)[1] <- "weather_cd"
 merged <- merge(x=pollutantMonth, y=weatherMonth, by=c("year", "month", "weather_cd"), all.x=TRUE)

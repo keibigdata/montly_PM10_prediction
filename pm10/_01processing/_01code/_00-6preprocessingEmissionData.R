@@ -136,9 +136,9 @@ emission.expanded[emission.expanded[,"SIGUNGU"]=="진해시", "SIGUNGU"] <- "창
 library(dplyr)
 stdSigungu <- read.csv("D:/01 Study/08 pm/processing/std_sigungu.csv")
 emission.joined <- left_join(emission.expanded, stdSigungu, by= c("SIDO"="SIDO","SIGUNGU"="SIGUNGU","SIGUNGU2"="SIGUNGU2"))
-emission.joined <- emission.joined[,c("YEAR","SIDO","SIGUNGU","SIGUNGU2","LARGECATE","SIG_CD","EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3","EM_PM2.5")]
+emission.joined <- emission.joined[,c("YEAR","SIDO","SIGUNGU","SIGUNGU2","LARGECATE","SIG_CD","EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")] #,"EM_PM2.5"
 #aggregation
-emission.joined <- aggregate(x=emission.joined[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3","EM_PM2.5")],
+emission.joined <- aggregate(x=emission.joined[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")], #,"EM_PM2.5"
                            by=emission.joined[c("YEAR","SIDO","SIGUNGU","SIGUNGU2","SIG_CD","LARGECATE")],
                            FUN=sum,
                            na.rm=TRUE)
@@ -190,6 +190,168 @@ emission.joined.temp <- left_join(emission.joined.temp, emission.joined.7, by= c
 emission.joined.temp <- left_join(emission.joined.temp, emission.joined.8, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
 emission.joined <- left_join(emission.joined.temp, emission.joined.9, by= c("YEAR"="YEAR","SIG_CD"="SIG_CD"))
 
-
 #save csv
 write.csv(emission.joined, "D:/01 Study/08 pm/processing/input/emission_joined.csv", row.names = FALSE)
+
+#########################################################################################################################################
+##explore and validate the data
+
+#overall statistics
+emission.aggr.1 <- aggregate(x=emission[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3","EM_PM2.5")],
+                             by=emission[c("YEAR")],
+                             FUN=sum,
+                             na.rm=TRUE)
+emission.aggr.1.melted <- melt(emission.aggr.1, id="YEAR")
+ggplot(data=emission.aggr.1.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 1500000000, 100000000), limits = c(0,1500000000))
+
+#Large category
+emission.joined.1.year <- aggregate(x=emission.joined.1[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")], #,"EM_PM2.5"
+                                    by=emission.joined.1[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+emission.joined.2.year <- aggregate(x=emission.joined.2[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")],
+                                    by=emission.joined.2[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+emission.joined.3.year <- aggregate(x=emission.joined.3[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")],
+                                    by=emission.joined.3[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+emission.joined.4.year <- aggregate(x=emission.joined.4[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")],
+                                    by=emission.joined.4[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+emission.joined.5.year <- aggregate(x=emission.joined.5[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")],
+                                    by=emission.joined.5[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+emission.joined.6.year <- aggregate(x=emission.joined.6[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")],
+                                    by=emission.joined.6[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+emission.joined.7.year <- aggregate(x=emission.joined.7[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")],
+                                    by=emission.joined.7[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+emission.joined.8.year <- aggregate(x=emission.joined.8[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")],
+                                    by=emission.joined.8[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+emission.joined.9.year <- aggregate(x=emission.joined.9[c("EM_CO","EM_NOx","EM_SOx","EM_TSP","EM_PM10","EM_VOC","EM_NH3")],
+                                    by=emission.joined.9[c("YEAR")],
+                                    FUN=sum,
+                                    na.rm=TRUE)
+
+library(ggplot2)
+library(reshape2)
+
+emission.joined.1.year.melted <- melt(emission.joined.1.year, id="YEAR")
+emission.joined.2.year.melted <- melt(emission.joined.2.year, id="YEAR")
+emission.joined.3.year.melted <- melt(emission.joined.3.year, id="YEAR")
+emission.joined.4.year.melted <- melt(emission.joined.4.year, id="YEAR")
+emission.joined.5.year.melted <- melt(emission.joined.5.year, id="YEAR")
+emission.joined.6.year.melted <- melt(emission.joined.6.year, id="YEAR")
+emission.joined.7.year.melted <- melt(emission.joined.7.year, id="YEAR")
+emission.joined.8.year.melted <- melt(emission.joined.8.year, id="YEAR")
+emission.joined.9.year.melted <- melt(emission.joined.9.year, id="YEAR")
+
+
+ggplot(data=emission.joined.1.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  #ylab(expression("PM "[10] ~ "³óµµ"  ~ (mu ~ g/m^{3}))) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 400000000, 100000000), limits = c(0,450000000)) #+
+  #geom_text(aes(y = PM10, label = as.character(pm10Label), size = 4, hjust = -0.3, vjust = 0.1))
+
+ggplot(data=emission.joined.2.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 100000000, 10000000), limits = c(0,100000000))
+
+ggplot(data=emission.joined.3.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 200000000, 50000000), limits = c(0,200000000))
+
+ggplot(data=emission.joined.4.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 200000000, 50000000), limits = c(0,200000000))
+
+ggplot(data=emission.joined.5.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 40000000, 5000000), limits = c(0,40000000))
+
+ggplot(data=emission.joined.6.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 200000000, 500000000), limits = c(0,200000000.5000000000))
+
+ggplot(data=emission.joined.7.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 700000000, 100000000), limits = c(0,700000000))
+
+ggplot(data=emission.joined.8.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 250000000, 50000000), limits = c(0,250000000))
+
+ggplot(data=emission.joined.9.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 50000000, 10000000), limits = c(0,50000000))
