@@ -36,7 +36,7 @@ bData.aggr <- aggregate(x=bData[c("Value")],
                              FUN=narmMean) #,
                              #na.rm=TRUE)
 
-write.csv(bData.aggr, "D:/my-backup/project/pm10/_01processing/_00input/_00-8preprocessingChina/Beijing_aggr.csv", row.names = FALSE)
+write.csv(bData.aggr, "D:/my-backup/project/pm10/_01processing/_02output/_00-8preprocessingChina/Beijing_aggr.csv", row.names = FALSE)
 
 
 ##mean of Shanghai
@@ -60,4 +60,4 @@ sData.aggr <- aggregate(x=sData[c("Value")],
                         by=sData[c("Year","Month")],
                         FUN=narmMean)
 
-write.csv(sData.aggr, "D:/my-backup/project/pm10/_01processing/_00input/_00-8preprocessingChina/Shanghai_aggr.csv", row.names = FALSE)
+write.csv(sData.aggr, "D:/my-backup/project/pm10/_01processing/_02output/_00-8preprocessingChina/Shanghai_aggr.csv", row.names = FALSE)

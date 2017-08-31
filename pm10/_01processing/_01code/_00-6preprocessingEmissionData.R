@@ -263,7 +263,7 @@ emission.joined.7.year.melted <- melt(emission.joined.7.year, id="YEAR")
 emission.joined.8.year.melted <- melt(emission.joined.8.year, id="YEAR")
 emission.joined.9.year.melted <- melt(emission.joined.9.year, id="YEAR")
 
-
+#에너지산업 연소 (Nox, Sox)
 ggplot(data=emission.joined.1.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -276,6 +276,20 @@ ggplot(data=emission.joined.1.year.melted, aes(x=YEAR, y=value, colour=variable)
   scale_y_continuous(breaks=seq(0, 400000000, 100000000), limits = c(0,450000000)) #+
   #geom_text(aes(y = PM10, label = as.character(pm10Label), size = 4, hjust = -0.3, vjust = 0.1))
 
+#에너지산업 연소 (CO, TSP, PM10, VOC, NH3)
+ggplot(data=emission.joined.1.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  #ylab(expression("PM "[10] ~ "³óµµ"  ~ (mu ~ g/m^{3}))) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 400000000, 10000000), limits = c(0,15000000)) #+
+#geom_text(aes(y = PM10, label = as.character(pm10Label), size = 4, hjust = -0.3, vjust = 0.1))
+
+#비산업 연소 (Sox, CO, Nox)
 ggplot(data=emission.joined.2.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -286,6 +300,18 @@ ggplot(data=emission.joined.2.year.melted, aes(x=YEAR, y=value, colour=variable)
   scale_x_continuous(breaks=seq(2001, 2013, 1)) +
   scale_y_continuous(breaks=seq(0, 100000000, 10000000), limits = c(0,100000000))
 
+#비산업 연소 (TSP, PM10, VOC, NH3)
+ggplot(data=emission.joined.2.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 5000000, 1000000), limits = c(0,5000000))
+
+#제조업 연소 (Nox, Sox, TSP, PM10)
 ggplot(data=emission.joined.3.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -296,6 +322,18 @@ ggplot(data=emission.joined.3.year.melted, aes(x=YEAR, y=value, colour=variable)
   scale_x_continuous(breaks=seq(2001, 2013, 1)) +
   scale_y_continuous(breaks=seq(0, 200000000, 50000000), limits = c(0,200000000))
 
+#제조업 연소 (CO, VOC, NH3)
+ggplot(data=emission.joined.3.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 20000000, 5000000), limits = c(0,20000000))
+
+#생산 공정 (VOC, SOx, Nox)
 ggplot(data=emission.joined.4.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -306,6 +344,18 @@ ggplot(data=emission.joined.4.year.melted, aes(x=YEAR, y=value, colour=variable)
   scale_x_continuous(breaks=seq(2001, 2013, 1)) +
   scale_y_continuous(breaks=seq(0, 200000000, 50000000), limits = c(0,200000000))
 
+#생산 공정 (CO, NH3, TSP, PM10)
+ggplot(data=emission.joined.4.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 50000000, 5000000), limits = c(0,50000000))
+
+#에너지 수송 및 저장 (VOC, NH3)
 ggplot(data=emission.joined.5.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -316,6 +366,18 @@ ggplot(data=emission.joined.5.year.melted, aes(x=YEAR, y=value, colour=variable)
   scale_x_continuous(breaks=seq(2001, 2013, 1)) +
   scale_y_continuous(breaks=seq(0, 40000000, 5000000), limits = c(0,40000000))
 
+#에너지 수송 및 저장 (VOC, NH3)
+ggplot(data=emission.joined.5.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 100, 100), limits = c(0,100))
+
+#유기용제 (VOC, NH3)
 ggplot(data=emission.joined.6.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -324,8 +386,20 @@ ggplot(data=emission.joined.6.year.melted, aes(x=YEAR, y=value, colour=variable)
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
   scale_x_continuous(breaks=seq(2001, 2013, 1)) +
-  scale_y_continuous(breaks=seq(0, 200000000, 500000000), limits = c(0,200000000.5000000000))
+  scale_y_continuous(breaks=seq(0, 600000000, 100000000), limits = c(0,600000000))
 
+#유기용제 (VOC, NH3)
+ggplot(data=emission.joined.6.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 100, 100), limits = c(0,100))
+
+#도로이동오염원 (CO, Nox)
 ggplot(data=emission.joined.7.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -336,6 +410,18 @@ ggplot(data=emission.joined.7.year.melted, aes(x=YEAR, y=value, colour=variable)
   scale_x_continuous(breaks=seq(2001, 2013, 1)) +
   scale_y_continuous(breaks=seq(0, 700000000, 100000000), limits = c(0,700000000))
 
+#도로이동오염원 (VOC, PM10, NH3, Sox)
+ggplot(data=emission.joined.7.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 150000000, 10000000), limits = c(0,150000000))
+
+#비도로이동오염원 (Nox)
 ggplot(data=emission.joined.8.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -346,6 +432,18 @@ ggplot(data=emission.joined.8.year.melted, aes(x=YEAR, y=value, colour=variable)
   scale_x_continuous(breaks=seq(2001, 2013, 1)) +
   scale_y_continuous(breaks=seq(0, 250000000, 50000000), limits = c(0,250000000))
 
+#비도로이동오염원 (CO, Sox, TSP, PM10, VOC, NH3)
+ggplot(data=emission.joined.8.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 100000000, 10000000), limits = c(0,100000000))
+
+#폐기물처리 (VOC)
 ggplot(data=emission.joined.9.year.melted, aes(x=YEAR, y=value, colour=variable)) +
   geom_line() +
   geom_point(shape=21, colour="black", size=2) +
@@ -355,3 +453,14 @@ ggplot(data=emission.joined.9.year.melted, aes(x=YEAR, y=value, colour=variable)
         panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
   scale_x_continuous(breaks=seq(2001, 2013, 1)) +
   scale_y_continuous(breaks=seq(0, 50000000, 10000000), limits = c(0,50000000))
+
+#폐기물처리 (Nox, Sox, CO, TSP, PM10, NH3)
+ggplot(data=emission.joined.9.year.melted, aes(x=YEAR, y=value, colour=variable)) +
+  geom_line() +
+  geom_point(shape=21, colour="black", size=2) +
+  theme_bw() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
+  scale_x_continuous(breaks=seq(2001, 2013, 1)) +
+  scale_y_continuous(breaks=seq(0, 20000000, 1000000), limits = c(0,20000000))
