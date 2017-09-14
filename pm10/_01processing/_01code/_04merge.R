@@ -14,6 +14,15 @@ bDist <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_00-7distan
 sDist <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_00-7distanceToChina/distance_shanghai.csv", header=T, sep=",", stringsAsFactors = FALSE)
 ##emission
 emData <- read.csv("D:/01 Study/08 pm/processing/input/emission_joined.csv", header=T, sep=",", stringsAsFactors = FALSE)
+##population density
+pdData <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_00-10mergePopulationDensity/_00-10mergePopulationDensity.csv", header=T, sep=",", stringsAsFactors = FALSE)
+##yellowDust 
+ydData <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_00-12mergeYellowDust/_00-12mergeYellowDust.csv", header=T, sep=",", stringsAsFactors = FALSE)
+ydData1 <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_00-12mergeYellowDust/_00-12mergeYellowDust1.csv", header=T, sep=",", stringsAsFactors = FALSE)
+
+
+
+
 
 
 
