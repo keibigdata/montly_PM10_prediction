@@ -60,7 +60,7 @@ colnames(pd16) <- c("SIDO", "SIGUNGU", "SIGUNGU2", "SIG_CD", "POP_DEN", "YEAR")
 
 pd.merged <- rbind(pd00,pd01,pd02,pd03,pd04,pd05,pd06,pd07,pd08,pd09,pd10,pd11,pd12,pd13,pd14,pd15,pd16)
 
-write.csv(pd.merged, "D:/my-backup/project/pm10/_01processing/_02output/_00-10mergePopulationDensity/_00-10mergePopulationDensity.csv")
+write.csv(pd.merged, "D:/my-backup/project/pm10/_01processing/_02output/_00-10mergePopulationDensity/_00-10mergePopulationDensity.csv", row.names = FALSE)
 
 
 

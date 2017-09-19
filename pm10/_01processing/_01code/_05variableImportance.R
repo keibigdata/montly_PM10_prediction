@@ -8,12 +8,20 @@ merged.edt$month <- as.factor(merged.edt$month)
 str(merged.edt$year)
 str(merged.edt$month)
 
+
+##Data load
+merged.ex1 <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_04merge/merged.ex1.csv", header=T, sep=",", stringsAsFactors = FALSE)
+merged.ex2 <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_04merge/merged.ex2.csv", header=T, sep=",", stringsAsFactors = FALSE)
+merged.ex3 <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_04merge/merged.ex3.csv", header=T, sep=",", stringsAsFactors = FALSE)
+merged.ex4 <- read.csv("D:/my-backup/project/pm10/_01processing/_02output/_04merge/merged.ex4.csv", header=T, sep=",", stringsAsFactors = FALSE)
+
 #########################################################################
 ##randomForest pk test
 require(randomForest)
-fit=randomForest(formula=PM10~., data=merged.edt, na.action=na.roughfix)
-vi_fit=importance(fit)
-varImpPlot(fit, type=2)
+merged.ex1[merged.ex1==""] <- NA
+fit=randomForest(formula=PM10~., data=merged.ex1, na.action=na.roughfix)
+vi_fit=importance(fit, type=1, scale = TRUE)
+varImpPlot(fit, type=1)
 
 importanceOrder=order(-fit$importance)
 names=rownames(fit$importance)[importanceOrder][1:15]

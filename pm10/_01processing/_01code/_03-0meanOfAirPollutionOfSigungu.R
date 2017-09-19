@@ -72,4 +72,4 @@ data_2003_mean_bind3 <- merge(data_2003_mean_bind2, NO2_mean2, by='day', all = T
 data_2003_mean_bind4 <- merge(data_2003_mean_bind3, PM10_mean2, by='day', all = TRUE)
 
 #output
-write.csv(data_2003_mean_bind4, "D:\\01 Study\\08 pm\\processing\\input\\result\\pm10_sig_matching_75_mean_agg.csv")
+write.csv(data_2003_mean_bind4, "D:\\01 Study\\08 pm\\processing\\input\\result\\pm10_sig_matching_75_mean_agg.csv", row.names=FALSE)

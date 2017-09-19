@@ -12,6 +12,14 @@ narmMean <- function(values){
   }
 }
 
+narmMeanAQI <- function(values){
+  if(length(values[values!=NA])>=21){
+    mean(values, na.rm=TRUE)
+  } else {
+    NA
+  }
+}
+
 #load data
 b_08 = read.csv("D:/my-backup/project/pm10/_01processing/_00input/_00-8preprocessingChina/Beijing_2008.csv")
 b_09 = read.csv("D:/my-backup/project/pm10/_01processing/_00input/_00-8preprocessingChina/Beijing_2009.csv")
@@ -61,3 +69,26 @@ sData.aggr <- aggregate(x=sData[c("Value")],
                         FUN=narmMean)
 
 write.csv(sData.aggr, "D:/my-backup/project/pm10/_01processing/_02output/_00-8preprocessingChina/Shanghai_aggr.csv", row.names = FALSE)
+
+
+########################################################################################################################################################################################
+
+#load aqi data
+b_aqi = read.csv("D:/my-backup/project/pm10/_01processing/_02output/_00-8preprocessingChina/Beijing_AQI.csv")
+s_aqi = read.csv("D:/my-backup/project/pm10/_01processing/_02output/_00-8preprocessingChina/Shanghai_AQI.csv")
+
+colnames(b_aqi)
+colnames(s_aqi)
+
+b_aqi.edt <- b_aqi[,c(2:4)]
+s_aqi.edt <- s_aqi[,c(2:4)]
+
+b_aqi.aggr <- aggregate(x=b_aqi.edt[c("AQI")],
+                        by=b_aqi.edt[c("YEAR","MONTH")],
+                        FUN=narmMeanAQI) #na.rm=TRUE)
+s_aqi.aggr <- aggregate(x=s_aqi.edt[c("AQI")],
+                        by=s_aqi.edt[c("YEAR","MONTH")],
+                        FUN=narmMeanAQI) #,
+
+write.csv(b_aqi.aggr, "D:/my-backup/project/pm10/_01processing/_02output/_00-8preprocessingChina/Beijing_AQI_aggr.csv", row.names = FALSE)
+write.csv(s_aqi.aggr, "D:/my-backup/project/pm10/_01processing/_02output/_00-8preprocessingChina/Tianjin_AQI_aggr.csv", row.names = FALSE)
