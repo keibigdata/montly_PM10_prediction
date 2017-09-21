@@ -53,7 +53,6 @@ write.csv(yd.merged, "D:/my-backup/project/pm10/_01processing/_02output/_00-12me
 yd1 = read.csv("D:/my-backup/project/pm10/_01processing/_02output/_00-11yellowDust/_00-11yellowDust1.csv", header = T)
 
 #column -> row
-
 yd1.01 = yd1[,c(1:3,4)]
 yd1.02 = yd1[,c(1:3,5)]
 yd1.03 = yd1[,c(1:3,6)]
