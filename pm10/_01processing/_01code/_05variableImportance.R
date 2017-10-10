@@ -194,8 +194,8 @@ write.csv(sum.ex4["variable.importance"], "D:/my-backup/project/pm10/_01processi
 
 ####################################### merged.ex5 #######################################
 rpart.ex5=rpart(formula=PM10~., data=merged.ex5[ind.ex5==1,], na.action=na.roughfix)
-plot(rpart.ex1)
-text(rpart.ex1)
+plot(rpart.ex5)
+text(rpart.ex5)
 sum.ex5=summary(rpart.ex5)
 write.csv(sum.ex5["variable.importance"], "D:/my-backup/project/pm10/_01processing/_02output/_05variableImportance/sum.ex5.csv")
 
