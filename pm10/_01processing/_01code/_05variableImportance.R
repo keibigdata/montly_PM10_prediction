@@ -7,6 +7,15 @@ merged.ex4 = read.csv("D:/my-backup/project/pm10/_01processing/_02output/_04merg
 merged.ex5 = read.csv("D:/my-backup/project/pm10/_01processing/_02output/_04merge/merged.ex5.csv", header=T, sep=",", stringsAsFactors = FALSE)
 merged.ex6 = read.csv("D:/my-backup/project/pm10/_01processing/_02output/_04merge/merged.ex6.csv", header=T, sep=",", stringsAsFactors = FALSE)
 
+colnames(merged.ex1)
+colnames(merged.ex2)
+colnames(merged.ex3)
+colnames(merged.ex4)
+colnames(merged.ex5)
+colnames(merged.ex6)
+
+merged.colname <- cbind(colnames(merged.ex1), colnames(merged.ex2), colnames(merged.ex3), colnames(merged.ex4), colnames(merged.ex5), colnames(merged.ex6) )
+write.csv(merged.colname, "/Users/kei/Documents/_temp_170921/_05variableImportance/merged.colname.csv")
 ##################################################################################################################################################
 ##################################################################################################################################################
 ##randomForest pk experiment
@@ -194,8 +203,8 @@ write.csv(sum.ex4["variable.importance"], "D:/my-backup/project/pm10/_01processi
 
 ####################################### merged.ex5 #######################################
 rpart.ex5=rpart(formula=PM10~., data=merged.ex5[ind.ex5==1,], na.action=na.roughfix)
-plot(rpart.ex5)
-text(rpart.ex5)
+plot(rpart.ex1)
+text(rpart.ex1)
 sum.ex5=summary(rpart.ex5)
 write.csv(sum.ex5["variable.importance"], "D:/my-backup/project/pm10/_01processing/_02output/_05variableImportance/sum.ex5.csv")
 
@@ -274,6 +283,48 @@ gbm.pred.ex6 = predict(gbm.ex6, newdata=merged.ex6[ind.ex6==2 & !is.na(merged.ex
 ind.na.ex6 = !is.na(gbm.pred.ex6)
 MSE.gbm.ex6 = mean((gbm.pred.ex6[ind.na.ex6]-rf.test.ex6[ind.na.ex6])^2)
 
+
+gbm1.ex1=gbm(PM10~.,data=merged.ex1[ind.ex1==1 & !is.na(merged.ex1[,"PM10"]),], distribution="gaussian",n.trees=5000,interaction.depth=4,shrinkage=0.01,verbose=FALSE)
+
+gbm1.ex2=gbm(PM10~.,data=merged.ex2[ind.ex2==1 & !is.na(merged.ex2[,"PM10"]),], distribution="gaussian",n.trees=5000,interaction.depth=4,shrinkage=0.01,verbose=FALSE)
+
+gbm1.ex3=gbm(PM10~.,data=merged.ex3[ind.ex3==1 & !is.na(merged.ex3[,"PM10"]),], distribution="gaussian",n.trees=5000,interaction.depth=4,shrinkage=0.01,verbose=FALSE)
+
+gbm1.ex4=gbm(PM10~.,data=merged.ex4[ind.ex4==1 & !is.na(merged.ex4[,"PM10"]),], distribution="gaussian",n.trees=5000,interaction.depth=4,shrinkage=0.01,verbose=FALSE)
+
+gbm1.ex5=gbm(PM10~.,data=merged.ex5[ind.ex5==1 & !is.na(merged.ex5[,"PM10"]),], distribution="gaussian",n.trees=5000,interaction.depth=4,shrinkage=0.01,verbose=FALSE)
+
+gbm1.ex6=gbm(PM10~.,data=merged.ex6[ind.ex6==1 & !is.na(merged.ex6[,"PM10"]),], distribution="gaussian",n.trees=5000,interaction.depth=4,shrinkage=0.01,verbose=FALSE)
+
+
+gbm1.pred.ex1 = predict(gbm1.ex1, newdata=merged.ex1[ind.ex1==2 & !is.na(merged.ex1[,"PM10"]),], n.trees=5000, type="response", predict.all = TRUE)
+ind.na.ex1 = !is.na(gbm1.pred.ex1)
+MSE.gbm1.ex1 = mean((gbm1.pred.ex1[ind.na.ex1]-rf.test.ex1[ind.na.ex1])^2)
+
+gbm1.pred.ex2 = predict(gbm1.ex2, newdata=merged.ex2[ind.ex2==2 & !is.na(merged.ex2[,"PM10"]),], n.trees=5000, type="response", predict.all = TRUE)
+ind.na.ex2 = !is.na(gbm1.pred.ex2)
+MSE.gbm1.ex2 = mean((gbm1.pred.ex2[ind.na.ex2]-rf.test.ex2[ind.na.ex2])^2)
+
+gbm1.pred.ex3 = predict(gbm1.ex3, newdata=merged.ex3[ind.ex3==2 & !is.na(merged.ex3[,"PM10"]),], n.trees=5000, type="response", predict.all = TRUE)
+ind.na.ex3 = !is.na(gbm1.pred.ex3)
+MSE.gbm1.ex3 = mean((gbm1.pred.ex3[ind.na.ex3]-rf.test.ex3[ind.na.ex3])^2)
+
+gbm1.pred.ex4 = predict(gbm1.ex4, newdata=merged.ex4[ind.ex4==2 & !is.na(merged.ex4[,"PM10"]),], n.trees=5000, type="response", predict.all = TRUE)
+ind.na.ex4 = !is.na(gbm1.pred.ex4)
+MSE.gbm1.ex4 = mean((gbm1.pred.ex4[ind.na.ex4]-rf.test.ex4[ind.na.ex4])^2)
+
+gbm1.pred.ex5 = predict(gbm1.ex5, newdata=merged.ex5[ind.ex5==2 & !is.na(merged.ex5[,"PM10"]),], n.trees=5000, type="response", predict.all = TRUE)
+ind.na.ex5 = !is.na(gbm1.pred.ex5)
+MSE.gbm1.ex5 = mean((gbm1.pred.ex5[ind.na.ex5]-rf.test.ex5[ind.na.ex5])^2)
+
+gbm1.pred.ex6 = predict(gbm1.ex6, newdata=merged.ex6[ind.ex6==2 & !is.na(merged.ex6[,"PM10"]),], n.trees=5000, type="response", predict.all = TRUE)
+ind.na.ex6 = !is.na(gbm1.pred.ex6)
+MSE.gbm1.ex6 = mean((gbm1.pred.ex6[ind.na.ex6]-rf.test.ex6[ind.na.ex6])^2)
+
+
+
+
+
 sum.gbm.ex1 = summary(gbm.ex1)
 sum.gbm.ex2 = summary(gbm.ex2)
 sum.gbm.ex3 = summary(gbm.ex3)
@@ -287,6 +338,20 @@ write.csv(sum.gbm.ex4, "D:/my-backup/project/pm10/_01processing/_02output/_05var
 write.csv(sum.gbm.ex5, "D:/my-backup/project/pm10/_01processing/_02output/_05variableImportance/sum.gbm.ex5.csv")
 write.csv(sum.gbm.ex6, "D:/my-backup/project/pm10/_01processing/_02output/_05variableImportance/sum.gbm.ex6.csv")
 
+
+sum.gbm1.ex1 = summary(gbm1.ex1)
+sum.gbm1.ex2 = summary(gbm1.ex2)
+sum.gbm1.ex3 = summary(gbm1.ex3)
+sum.gbm1.ex4 = summary(gbm1.ex4)
+sum.gbm1.ex5 = summary(gbm1.ex5)
+sum.gbm1.ex6 = summary(gbm1.ex6)
+
+write.csv(sum.gbm1.ex1, "/Users/kei/Documents/_temp_170921/_05variableImportance/sum.gbm1.ex1.csv")
+write.csv(sum.gbm1.ex2, "/Users/kei/Documents/_temp_170921/_05variableImportance/sum.gbm1.ex2.csv")
+write.csv(sum.gbm1.ex3, "/Users/kei/Documents/_temp_170921/_05variableImportance/sum.gbm1.ex3.csv")
+write.csv(sum.gbm1.ex4, "/Users/kei/Documents/_temp_170921/_05variableImportance/sum.gbm1.ex4.csv")
+write.csv(sum.gbm1.ex5, "/Users/kei/Documents/_temp_170921/_05variableImportance/sum.gbm1.ex5.csv")
+write.csv(sum.gbm1.ex6, "/Users/kei/Documents/_temp_170921/_05variableImportance/sum.gbm1.ex6.csv")
 
 ##########################################################################################
 ####################################### bagging #######################################
@@ -364,15 +429,43 @@ write.csv(vi.bag.ex6, "D:/my-backup/project/pm10/_01processing/_02output/_05vari
 ##################################################################################################################################################
 ##################################################################################################################################################
 ## MSE
-MSE.ex1 <- c(MSE.lm.ex1,MSE.rpart.ex1,MSE.rf.ex1,MSE.bag.ex1,MSE.gbm.ex1)
-MSE.ex2 <- c(MSE.lm.ex2,MSE.rpart.ex2,MSE.rf.ex2,MSE.bag.ex2,MSE.gbm.ex2)
-MSE.ex3 <- c(MSE.lm.ex3,MSE.rpart.ex3,MSE.rf.ex3,MSE.bag.ex3,MSE.gbm.ex3)
-MSE.ex4 <- c(MSE.lm.ex4,MSE.rpart.ex4,MSE.rf.ex4,MSE.bag.ex4,MSE.gbm.ex4)
-MSE.ex5 <- c(MSE.lm.ex5,MSE.rpart.ex5,MSE.rf.ex5,MSE.bag.ex5,MSE.gbm.ex5)
-MSE.ex6 <- c(MSE.lm.ex6,MSE.rpart.ex6,MSE.rf.ex6,MSE.bag.ex6,MSE.gbm.ex6)
+MSE.ex1 <- c(MSE.lm.ex1,MSE.rpart.ex1,MSE.rf.ex1,MSE.bagging.ex1,MSE.gbm.ex1,MSE.gbm1.ex1)
+MSE.ex2 <- c(MSE.lm.ex2,MSE.rpart.ex2,MSE.rf.ex2,MSE.bagging.ex2,MSE.gbm.ex2,MSE.gbm1.ex2)
+MSE.ex3 <- c(MSE.lm.ex3,MSE.rpart.ex3,MSE.rf.ex3,MSE.bagging.ex3,MSE.gbm.ex3,MSE.gbm1.ex3)
+MSE.ex4 <- c(MSE.lm.ex4,MSE.rpart.ex4,MSE.rf.ex4,MSE.bagging.ex4,MSE.gbm.ex4,MSE.gbm1.ex4)
+MSE.ex5 <- c(MSE.lm.ex5,MSE.rpart.ex5,MSE.rf.ex5,MSE.bagging.ex5,MSE.gbm.ex5,MSE.gbm1.ex5)
+MSE.ex6 <- c(MSE.lm.ex6,MSE.rpart.ex6,MSE.rf.ex6,MSE.bagging.ex6,MSE.gbm.ex6,MSE.gbm1.ex6)
 
 MSE.all <- rbind(MSE.ex1,MSE.ex2,MSE.ex3,MSE.ex4,MSE.ex5,MSE.ex6)
+colnames(MSE.all) <- c("lm","dt","rf","bag","gbm","gbm1")
+MSE.all <- MSE.all[,-5]
 
+MSE.vec <- sort(c(MSE.all))
+plot(MSE.all)
+
+df.lm <- data.frame(row.names(MSE.all),"lm",MSE.all[,"lm"])
+df.dt <- data.frame(row.names(MSE.all),"dt",MSE.all[,"dt"])
+df.rf <- data.frame(row.names(MSE.all),"rf",MSE.all[,"rf"])
+df.bag <- data.frame(row.names(MSE.all),"bag",MSE.all[,"bag"])
+df.gbm <- data.frame(row.names(MSE.all),"gbm",MSE.all[,"gbm1"])
+
+colnames(df.lm)=c("exp","method","MSE")
+colnames(df.dt)=c("exp","method","MSE")
+colnames(df.rf)=c("exp","method","MSE")
+colnames(df.bag)=c("exp","method","MSE")
+colnames(df.gbm)=c("exp","method","MSE")
+
+df.all <- rbind(df.lm,df.dt,df.rf,df.bag,df.gbm)
+
+df.all.order <- df.all[order(df.all[,3]),]
+ggplot(data = df.all.order, aes(x = exp, y = MSE)) +
+  geom_point( aes(colour=method)) +
+  scale_y_continuous(breaks=seq(0, 300, 50))
+  theme_bw() +
+  theme(panel.grid.major.x = element_line(color = "grey60", linetype = "dashed"),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.major.y = element_line(color = "grey60", linetype = "dashed"))
+  
 ##################################################################################################################################################
 ##################################################################################################################################################
 library(adabag)
@@ -382,10 +475,47 @@ library(dplyr)
 library(e1071)
 library(caret)
 bagging.ex1 <- train(form=PM10~., method="treebag", data=merged.ex1[ind.ex1==1,], importance=TRUE, na.action=na.omit)
-bagging.ex1 <- bagging(formula=PM10~., data=merged.ex1[ind.ex1==1,],importance=TRUE, na.action=na.rpart)
+bagging.ex2 <- train(form=PM10~., method="treebag", data=merged.ex2[ind.ex2==1,], importance=TRUE, na.action=na.omit)
+bagging.ex3 <- train(form=PM10~., method="treebag", data=merged.ex3[ind.ex3==1,], importance=TRUE, na.action=na.omit)
+bagging.ex4 <- train(form=PM10~., method="treebag", data=merged.ex4[ind.ex4==1,], importance=TRUE, na.action=na.omit)
+bagging.ex5 <- train(form=PM10~., method="treebag", data=merged.ex5[ind.ex5==1,], importance=TRUE, na.action=na.omit)
+bagging.ex6 <- train(form=PM10~., method="treebag", data=merged.ex6[ind.ex6==1,], importance=TRUE, na.action=na.omit)
 
-varImp(bagging.ex1)
-plot(varImp(bagging.ex1),top=30, )
+vi.bagging.ex1= varImp(bagging.ex1)
+vi.bagging.ex2= varImp(bagging.ex2)
+vi.bagging.ex3= varImp(bagging.ex3)
+vi.bagging.ex4= varImp(bagging.ex4)
+vi.bagging.ex5= varImp(bagging.ex5)
+vi.bagging.ex6= varImp(bagging.ex6)
 
-varImpPlot(bagging.ex1)
-varImp(rpart.ex1, value="rss")
+write.csv(vi.bagging.ex1$importance, "/Users/kei/Documents/_temp_170921/_05variableImportance/incMse.bagging.ex1.csv")
+write.csv(vi.bagging.ex2$importance, "/Users/kei/Documents/_temp_170921/_05variableImportance/incMse.bagging.ex2.csv")
+write.csv(vi.bagging.ex3$importance, "/Users/kei/Documents/_temp_170921/_05variableImportance/incMse.bagging.ex3.csv")
+write.csv(vi.bagging.ex4$importance, "/Users/kei/Documents/_temp_170921/_05variableImportance/incMse.bagging.ex4.csv")
+write.csv(vi.bagging.ex5$importance, "/Users/kei/Documents/_temp_170921/_05variableImportance/incMse.bagging.ex5.csv")
+write.csv(vi.bagging.ex6$importance, "/Users/kei/Documents/_temp_170921/_05variableImportance/incMse.bagging.ex6.csv")
+
+
+bagging.pred.ex1 = predict(bagging.ex1, newdata=merged.ex1[ind.ex1==2 & !is.na(merged.ex1[,"PM10"]),], na.action = na.pass)
+ind.na.ex1 = !is.na(bagging.pred.ex1)
+MSE.bagging.ex1 = mean((bagging.pred.ex1[ind.na.ex1]-rf.test.ex1[ind.na.ex1])^2)
+
+bagging.pred.ex2 = predict(bagging.ex2, newdata=merged.ex2[ind.ex2==2 & !is.na(merged.ex2[,"PM10"]),], na.action = na.pass)
+ind.na.ex2 = !is.na(bagging.pred.ex2)
+MSE.bagging.ex2 = mean((bagging.pred.ex2[ind.na.ex2]-rf.test.ex2[ind.na.ex2])^2)
+
+bagging.pred.ex3 = predict(bagging.ex3, newdata=merged.ex3[ind.ex3==2 & !is.na(merged.ex3[,"PM10"]),], na.action = na.pass)
+ind.na.ex3 = !is.na(bagging.pred.ex3)
+MSE.bagging.ex3 = mean((bagging.pred.ex3[ind.na.ex3]-rf.test.ex3[ind.na.ex3])^2)
+
+bagging.pred.ex4 = predict(bagging.ex4, newdata=merged.ex4[ind.ex4==2 & !is.na(merged.ex4[,"PM10"]),], na.action = na.pass)
+ind.na.ex4 = !is.na(bagging.pred.ex4)
+MSE.bagging.ex4 = mean((bagging.pred.ex4[ind.na.ex4]-rf.test.ex4[ind.na.ex4])^2)
+
+bagging.pred.ex5 = predict(bagging.ex5, newdata=merged.ex5[ind.ex5==2 & !is.na(merged.ex5[,"PM10"]),], na.action = na.pass)
+ind.na.ex5 = !is.na(bagging.pred.ex5)
+MSE.bagging.ex5 = mean((bagging.pred.ex5[ind.na.ex5]-rf.test.ex5[ind.na.ex5])^2)
+
+bagging.pred.ex6 = predict(bagging.ex6, newdata=merged.ex6[ind.ex6==2 & !is.na(merged.ex6[,"PM10"]),], na.action = na.pass)
+ind.na.ex6 = !is.na(bagging.pred.ex6)
+MSE.bagging.ex6 = mean((bagging.pred.ex6[ind.na.ex6]-rf.test.ex6[ind.na.ex6])^2)
