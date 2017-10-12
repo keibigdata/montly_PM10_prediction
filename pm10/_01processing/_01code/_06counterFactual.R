@@ -1,4 +1,7 @@
 ## counterfactual analysis
+## cf2: mean of %, wrong
+## cf3: mean divide mean
+
 
 varVec = c("SO2","CO","O3","NO2","MEAN_PRES","MEAN_SEA_PRES", "MAX_SEA_PRES", "MIN_SEA_PRES","MAX_WATER_PRES","SUM_PRECI","MEAN_WIND_SPED","SUM_SUN","BEIJING_PM2.5", "BEIJIING_PM2.5_STD","POP_DEN","YD_FREQ")
 varVec2 = c("SHANGHAI_PM2.5", "SHANGHAI_PM2.5_STD")
