@@ -46,10 +46,10 @@ for (i in 1:length(varVec)){
   diff.gbm.ex5 = mean(gbm1.cf.ex5-gbm1.cf.ex5.y0hat) / mean(gbm1.cf.ex5.y0hat) * 100
   diff.gbm.ex6 = mean(gbm1.cf.ex6-gbm1.cf.ex6.y0hat) / mean(gbm1.cf.ex6.y0hat) * 100
   
-  diff.rf.ex3 = mean(rf.cf.ex3$aggregate-rf.cf.ex3.y0hat$aggregate) / mean(rf.cf.ex3.y0hat$aggregate) * 100
-  diff.rf.ex4 = mean(rf.cf.ex4$aggregate-rf.cf.ex4.y0hat$aggregate) / mean(rf.cf.ex4.y0hat$aggregate) * 100
-  diff.rf.ex5 = mean(rf.cf.ex5$aggregate-rf.cf.ex5.y0hat$aggregate) / mean(rf.cf.ex5.y0hat$aggregate) * 100
-  diff.rf.ex6 = mean(rf.cf.ex6$aggregate-rf.cf.ex6.y0hat$aggregate) / mean(rf.cf.ex6.y0hat$aggregate) * 100
+  diff.rf.ex3 = mean(rf.cf.ex3$aggregate-rf.cf.ex3.y0hat$aggregate, na.rm = TRUE) / mean(rf.cf.ex3.y0hat$aggregate, na.rm = TRUE) * 100
+  diff.rf.ex4 = mean(rf.cf.ex4$aggregate-rf.cf.ex4.y0hat$aggregate, na.rm = TRUE) / mean(rf.cf.ex4.y0hat$aggregate, na.rm = TRUE) * 100
+  diff.rf.ex5 = mean(rf.cf.ex5$aggregate-rf.cf.ex5.y0hat$aggregate, na.rm = TRUE) / mean(rf.cf.ex5.y0hat$aggregate, na.rm = TRUE) * 100
+  diff.rf.ex6 = mean(rf.cf.ex6$aggregate-rf.cf.ex6.y0hat$aggregate, na.rm = TRUE) / mean(rf.cf.ex6.y0hat$aggregate, na.rm = TRUE) * 100
   
   
   #ind.na.ex3 = !is.na(gbm1.cf.ex3)
@@ -112,9 +112,9 @@ for (i in 1:length(varVec2)){
   diff.gbm.ex5 = mean(gbm1.cf.ex5-gbm1.cf.ex5.y0hat) / mean(gbm1.cf.ex5.y0hat) * 100
   diff.gbm.ex6 = mean(gbm1.cf.ex6-gbm1.cf.ex6.y0hat) / mean(gbm1.cf.ex6.y0hat) * 100
   
-  diff.rf.ex4 = mean(rf.cf.ex4$aggregate-rf.cf.ex4.y0hat$aggregate) / mean(rf.cf.ex4.y0hat$aggregate) * 100
-  diff.rf.ex5 = mean(rf.cf.ex5$aggregate-rf.cf.ex5.y0hat$aggregate) / mean(rf.cf.ex5.y0hat$aggregate) * 100
-  diff.rf.ex6 = mean(rf.cf.ex6$aggregate-rf.cf.ex6.y0hat$aggregate) / mean(rf.cf.ex6.y0hat$aggregate) * 100
+  diff.rf.ex4 = mean(rf.cf.ex4$aggregate-rf.cf.ex4.y0hat$aggregate, na.rm = TRUE) / mean(rf.cf.ex4.y0hat$aggregate, na.rm = TRUE) * 100
+  diff.rf.ex5 = mean(rf.cf.ex5$aggregate-rf.cf.ex5.y0hat$aggregate, na.rm = TRUE) / mean(rf.cf.ex5.y0hat$aggregate, na.rm = TRUE) * 100
+  diff.rf.ex6 = mean(rf.cf.ex6$aggregate-rf.cf.ex6.y0hat$aggregate, na.rm = TRUE) / mean(rf.cf.ex6.y0hat$aggregate, na.rm = TRUE) * 100
   
   # ind.na.ex4 = !is.na(gbm1.cf.ex4)
   # diff.gbm.ex4 = mean(gbm1.cf.ex4[ind.na.ex4]-rf.test.ex4[ind.na.ex4]) / mean(rf.test.ex4[ind.na.ex4]) * 100
@@ -154,7 +154,9 @@ for (i in 1:length(varVec3)){
   
   diff.gbm.ex5 = mean(gbm1.cf.ex5-gbm1.cf.ex5.y0hat) / mean(gbm1.cf.ex5.y0hat) * 100
 
-  diff.rf.ex5 = mean(rf.cf.ex5$aggregate-rf.cf.ex5.y0hat$aggregate) / mean(rf.cf.ex5.y0hat$aggregate) * 100
+  diff.rf.ex5 = mean(rf.cf.ex5$aggregate-rf.cf.ex5.y0hat$aggregate, na.rm = TRUE) / mean(rf.cf.ex5.y0hat$aggregate, na.rm = TRUE) * 100
+  
+  
   
   # ind.na.ex5 = !is.na(gbm1.cf.ex5)
   # diff.gbm.ex5 = mean(gbm1.cf.ex5[ind.na.ex5]-rf.test.ex5[ind.na.ex5]) / mean(rf.test.ex5[ind.na.ex5]) * 100
