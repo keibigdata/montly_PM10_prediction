@@ -1,4 +1,0 @@
-Managing Air Pollution Monitoring Station 
-1. web address -> "web_address"
-2. monitoring station info from excel data -> "all_stations_01_15", "dup_removed"
-3. geocoding -> "coordinate"[LAT, LNG]
