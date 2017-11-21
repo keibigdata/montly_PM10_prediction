@@ -69,6 +69,6 @@ ggplot(data=PM10_mean_plot, aes(x=PM10)) +
         panel.grid.minor.x = element_blank(),
         panel.grid.major.y = element_line(color = "grey60", linetype = "dashed")) +
   xlab(expression("PM "[10] ~ "농도"  ~ (mu ~ g/m^{3}))) +
-  ylab("")
+  ylab("시군구 수(개)")
 
 write.csv(PM10_mean_plot, "D:\\01 Study\\08 pm\\processing\\input\\result\\sig_cd.csv")
