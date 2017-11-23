@@ -1,12 +1,14 @@
 # 미세먼지 발생 패턴 분석
 
-본 연구는 [에어코리아](www.airkorea.or.kr) 에서 제공하는 대기오염물질 확정 데이터에 의사결정나무(Decision Tree) 기법을 적용하여 미세먼지의 발생 패턴에 대해 분석하는 연구입니다.
+본 연구는 [에어코리아](http://www.airkorea.or.kr) 에서 제공하는 대기오염물질 확정 데이터에 의사결정나무(Decision Tree) 기법을 적용하여 미세먼지의 발생 패턴에 대해 분석하는 연구입니다.
 
 ## Code 설명
 본 repository에서 제공하는 code에 대한 설명은 다음과 같습니다.
 
 > pm10
+
 >> _00data
+
 >>> _2016airPollution01-13: 2001 ~ 2013년 대기오염물질 농도 데이터
 
 >>> _2017airPollution14-16: 2014 ~ 2016년09월 대기오염물질 농도 데이터
@@ -20,8 +22,11 @@
 >>> 황사.zip: 황사관측일수
 
 >> _01processing
+
 >>> _00input
+
 >>> _01code
+
 >>>> _00-0monitoring_staion_processing: 대기오염물질측정소 주소 정리 및 geocoding 결과 반영(위도, 경도)
 
 >>>> _00-1geocoding.R: 대기오염물질측정소 주소를 기반으로 위경도 좌표 찾기
@@ -40,25 +45,25 @@
 
 >>>> _00-8preprocessingChina.R: 월별 데이터로 처리
 
->>>> _00-9populationDensity
+>>>> _00-9populationDensity: 인구밀도 데이터 
 
->>>> _00-9populationDensitySigCd
+>>>> _00-9populationDensitySigCd: 인구밀도 데이터에 시군구 코드 매칭
 
->>>> _00-10mergePopulationDensity.R
+>>>> _00-10mergePopulationDensity.R: 인구밀도 데이터를 조인시키기 위한 전처리
 
->>>> _00-11yellowDust
+>>>> _00-11yellowDust: [황사관측일수](http://www.kma.go.kr/weather/asiandust/observday.jsp) 처리 과정
 
->>>> _00-11yellowDust1
+>>>> _00-11yellowDust1: 사용 안함
 
->>>> _00-12mergeYellowDust.R
+>>>> _00-12mergeYellowDust.R: 황사관측일수 데이터를 조인시키기 위한 전처리
 
->>>> _01meanOfAirPollutionOfMonitoring.R
+>>>> _01meanOfAirPollutionOfMonitoring.R: 
 
 >>>> _02changeColumn
 
 >>>> _03-0meanOfAirPollutionOfSigungu.R
 
->>>> _03-1descriptiveStatistics.R
+>>>> _03-1descriptiveStatistics.R: 연평균, 월평균, 시군구별 평균 그래프
 
 >>>> _04merge.R
 
